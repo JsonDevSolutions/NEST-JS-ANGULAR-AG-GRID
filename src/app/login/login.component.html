@@ -1,0 +1,31 @@
+<div class="row justify-content-center align-items-center mt-5">
+  <div class="col-md-4 p-5 d-flex align-items-center border rounded-4 mt-5">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="w-100">
+      <h2>Login</h2>
+      <label class="form-label">Email address</label>
+      <input type="text" class="form-control" formControlName="email_address" />
+      <label class="form-label">Password</label>
+      <input
+        [type]="isPassword ? 'password' : 'text'"
+        class="form-control"
+        formControlName="password"
+      />
+      <div class="form-check mt-3">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          (click)="showPassword()"
+        />
+        <label class="form-check-label">Show Password</label>
+      </div>
+      <input
+        class="btn btn-primary form-control mt-3"
+        type="submit"
+        value="Login"
+      />
+      <a class="btn btn-link text-decoration-none" [routerLink]="['/register']"
+        >Create new account</a
+      >
+    </form>
+  </div>
+</div>
