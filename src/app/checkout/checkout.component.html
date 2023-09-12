@@ -1,0 +1,36 @@
+<div class="row justify-content-center align-items-center">
+  <div class="col-md-6 p-5 d-flex align-items-center">
+    <form [formGroup]="checkoutForm" (ngSubmit)="onCheckout()" class="w-100">
+      <h2>Shipping</h2>
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" formControlName="name" />
+      <label class="form-label">Address</label>
+      <input type="text" class="form-control" formControlName="address" />
+      <label class="form-label">Contact Number</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="contact_number"
+      />
+      <button class="btn btn-primary mt-2">Place Order</button>
+    </form>
+  </div>
+  <div class="col-md-6 p-5 align-items-center border">
+    <h2>Order Summary</h2>
+    <p class="fs-6">You have {{ cartCount }} items in your cart</p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <td>Name</td>
+          <td>Price</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items">
+          <td>{{ item.name }}</td>
+          <td>{{ item.price | currency }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
