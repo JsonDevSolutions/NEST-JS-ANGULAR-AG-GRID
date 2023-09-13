@@ -11,18 +11,22 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { CartComponent } from './cart/cart.component';
 import { SignupComponent } from './signup/signup.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ProductComponent } from './product/product.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
+    AgGridModule,
     RouterModule.forRoot([
       { path: '', component: ProductListComponent },
       { path: 'cart', component: CartComponent },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: SignupComponent },
       { path: 'checkout', component: CheckoutComponent },
+      { path: 'products', component: ProductComponent },
     ]),
   ],
   declarations: [
@@ -33,6 +37,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
     CartComponent,
     SignupComponent,
     CheckoutComponent,
+    ProductComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
