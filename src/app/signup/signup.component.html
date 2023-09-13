@@ -1,15 +1,19 @@
 <div class="row justify-content-center align-items-center">
   <div class="col-md-4 px-5 py-4 border rounded-4">
-    <form class="w-100" autocomplete="off">
+    <form class="w-100" [formGroup]="registerForm" (ngSubmit)="onRegister()">
       <h2>Register</h2>
       <label class="form-label">First name</label>
-      <input type="text" class="form-control" />
+      <input type="text" class="form-control" formControlName="firstName" />
       <label class="form-label">Last name</label>
-      <input type="text" class="form-control" />
+      <input type="text" class="form-control" formControlName="lastName" />
       <label class="form-label">Email address</label>
-      <input type="text" class="form-control" />
+      <input type="text" class="form-control" formControlName="email" />
       <label class="form-label">Password</label>
-      <input [type]="isPassword ? 'password' : 'text'" class="form-control" />
+      <input
+        [type]="isPassword ? 'password' : 'text'"
+        class="form-control"
+        formControlName="password"
+      />
       <label class="form-label">Confirm Password</label>
       <input [type]="isPassword ? 'password' : 'text'" class="form-control" />
       <div class="form-check mt-3">

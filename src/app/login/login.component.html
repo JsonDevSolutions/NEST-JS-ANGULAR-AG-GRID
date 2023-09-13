@@ -3,7 +3,7 @@
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="w-100">
       <h2>Login</h2>
       <label class="form-label">Email address</label>
-      <input type="text" class="form-control" formControlName="email_address" />
+      <input type="text" class="form-control" formControlName="email" />
       <label class="form-label">Password</label>
       <input
         [type]="isPassword ? 'password' : 'text'"

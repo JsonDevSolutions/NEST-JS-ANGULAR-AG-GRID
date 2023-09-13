@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -9,18 +10,21 @@ import { FormBuilder } from '@angular/forms';
 export class LoginComponent {
   isPassword = true;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+  ) {}
 
   showPassword() {
     this.isPassword = !this.isPassword;
   }
 
   loginForm = this.formBuilder.group({
-    email_address: '',
+    email: '',
     password: '',
   });
 
   onLogin(): void {
-    console.log(this.loginForm.value);
+    this.userService.login(this.loginForm.value).subscribe();
   }
 }

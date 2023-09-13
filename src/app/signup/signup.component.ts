@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { UserService } from '../user/user.service';
+import { User } from '../user/user.interface';
 
 @Component({
   selector: 'app-signup',
@@ -9,7 +11,10 @@ import { FormBuilder } from '@angular/forms';
 export class SignupComponent {
   isPassword = true;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+  ) {}
 
   showPassword() {
     this.isPassword = !this.isPassword;
@@ -18,7 +23,11 @@ export class SignupComponent {
   registerForm = this.formBuilder.group({
     firstName: '',
     lastName: '',
-    emailAddress: '',
+    email: '',
     password: '',
-  });
+  } as User);
+
+  onRegister(): void {
+    this.userService.signUp(this.registerForm.value).subscribe();
+  }
 }
