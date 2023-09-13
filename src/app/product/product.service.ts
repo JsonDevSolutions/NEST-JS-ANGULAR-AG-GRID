@@ -6,9 +6,11 @@ import { Product } from './products';
   providedIn: 'root',
 })
 export class ProductService {
+  host = 'http://localhost:3333';
+
   constructor(private http: HttpClient) {}
 
   getProducts() {
-    return this.http.get<Product[]>('http://localhost:3333/product');
+    return this.http.get<Product[]>(`${this.host}/product`);
   }
 }
