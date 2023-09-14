@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from './product.service';
 import { Product } from './products';
-import { ColDef, ValueFormatterParams } from 'ag-grid-community';
+import {
+  ColDef,
+  GridApi,
+  GridReadyEvent,
+  ValueFormatterParams,
+} from 'ag-grid-community';
 import { Observable } from 'rxjs';
 import { EditDeleteButtonComponent } from '../common-components/edit-delete-button/edit-delete-button.component';
 import { FormBuilder } from '@angular/forms';
@@ -14,6 +19,8 @@ import { NumberRegex } from '../constants/Regex';
   styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
+  private gridApi!: GridApi;
+
   constructor(
     private productService: ProductService,
     private formBuilder: FormBuilder,
@@ -53,15 +60,21 @@ export class ProductComponent implements OnInit {
     this.addProductForm.reset();
   }
 
-  ngOnInit(): void {
-    this.rowData = this.productService.getProducts();
-  }
-
-  onCellClicked(event: any) {
-    console.log(event);
+  onFilterTextBoxChanged() {
+    this.gridApi.setQuickFilter(
+      (document.getElementById('filter-text-box') as HTMLInputElement).value,
+    );
   }
 
   currencyFormatter(params: ValueFormatterParams) {
     return '$' + params.value.toFixed(2).replace(NumberRegex.COUNT, '$1,');
+  }
+
+  ngOnInit(): void {
+    this.rowData = this.productService.getProducts();
+  }
+
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
   }
 }

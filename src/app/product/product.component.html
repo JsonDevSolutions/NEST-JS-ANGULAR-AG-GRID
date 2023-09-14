@@ -26,7 +26,17 @@
     </form>
   </div>
   <div class="col-md-7 px-3 py-4 align-items-center border mt-5">
-    <h3>Product List</h3>
+    <div class="d-flex flex-row justify-content-between mb-2">
+      <h3>Product List</h3>
+      <input
+        type="text"
+        style="width: 300px"
+        class="form-control"
+        id="filter-text-box"
+        placeholder="Search..."
+        (input)="onFilterTextBoxChanged()"
+      />
+    </div>
     <div class="row">
       <ag-grid-angular
         style="height: 350px"
@@ -38,6 +48,7 @@
         [pagination]="true"
         [paginationPageSize]="10"
         [suppressMovableColumns]="true"
+        (gridReady)="onGridReady($event)"
       >
       </ag-grid-angular>
     </div>
