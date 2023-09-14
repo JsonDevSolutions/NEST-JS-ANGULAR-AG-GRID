@@ -1,6 +1,10 @@
 <div class="row justify-content-center align-items-center mt-5 column-gap-5">
   <div class="col-md-4 p-4 d-flex align-items-center border rounded-4 mt-5">
-    <form class="w-100">
+    <form
+      class="w-100"
+      [formGroup]="addProductForm"
+      (ngSubmit)="onAddProduct()"
+    >
       <h3>Add new Product</h3>
       <label class="form-label">Name</label>
       <input type="text" class="form-control" />

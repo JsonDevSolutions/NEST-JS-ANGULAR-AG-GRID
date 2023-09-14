@@ -29,6 +29,17 @@ export class ProductComponent implements OnInit {
     sortable: true,
   };
 
+  addProductForm = this.formBuilder.group({
+    name: '',
+    description: '',
+    price: '',
+    published: true,
+  });
+
+  onAddProduct(): void {
+    alert('hey');
+  }
+
   ngOnInit(): void {
     this.rowData = this.productService.getProducts();
   }
