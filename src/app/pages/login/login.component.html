@@ -2,14 +2,38 @@
   <div class="col-md-4 p-5 d-flex align-items-center border rounded-4 mt-5">
     <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="w-100">
       <h2>Login</h2>
+
+      <div class="alert alert-danger p-2" *ngIf="isInvalidLogin">
+        Username or password is incorrect.
+      </div>
+
       <label class="form-label">Email address</label>
-      <input type="text" class="form-control" formControlName="email" />
+      <input
+        type="email"
+        class="form-control"
+        placeholder="example@email.com"
+        [ngClass]="{ 'is-invalid': showInputError('email') }"
+        formControlName="email"
+      />
+      <p *ngIf="hasError('email', 'required')" class="text-danger">
+        Email is required.
+      </p>
+      <p *ngIf="hasError('email', 'email')" class="text-danger">
+        Invalid email address.
+      </p>
+
       <label class="form-label">Password</label>
       <input
         [type]="isPassword ? 'password' : 'text'"
         class="form-control"
+        placeholder="Password"
         formControlName="password"
+        [ngClass]="{ 'is-invalid': hasError('password', 'required') }"
       />
+      <div *ngIf="hasError('password', 'required')">
+        <p class="text-danger">Email is required.</p>
+      </div>
+
       <div class="form-check mt-3">
         <input
           class="form-check-input"

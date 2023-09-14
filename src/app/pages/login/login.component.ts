@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../core/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +10,13 @@ import { UserService } from '../../core/services/user.service';
 })
 export class LoginComponent {
   isPassword = true;
+  isSubmitted = false;
+  isInvalidLogin = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private router: Router,
   ) {}
 
   showPassword() {
@@ -20,11 +24,37 @@ export class LoginComponent {
   }
 
   loginForm = this.formBuilder.group({
-    email: '',
-    password: '',
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required]],
   });
 
+  // Check for individual validation errors
+  hasError(controlName: string, errorName: string): boolean {
+    const control = this.loginForm.get(controlName);
+    return (
+      !!control &&
+      control.hasError(errorName) &&
+      (control.dirty || control.touched || this.isSubmitted)
+    );
+  }
+
+  // Check if any validation error occurs
+  showInputError(controlName: string): boolean {
+    const control = this.loginForm.get(controlName);
+    return (
+      !!control &&
+      control?.invalid &&
+      (control.dirty || control.touched || this.isSubmitted)
+    );
+  }
+
   onLogin(): void {
-    this.userService.login(this.loginForm.value).subscribe();
+    this.isSubmitted = true;
+    if (this.loginForm.valid) {
+      this.userService.login(this.loginForm.value).subscribe({
+        complete: () => this.router.navigate(['/']),
+        error: () => (this.isInvalidLogin = true),
+      });
+    }
   }
 }
