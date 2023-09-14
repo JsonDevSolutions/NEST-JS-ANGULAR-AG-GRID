@@ -7,9 +7,10 @@ import {
   ValueFormatterParams,
 } from 'ag-grid-community';
 import { Observable } from 'rxjs';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 
 import { ProductService } from './product.service';
+import { ValidatorService } from '../../core/services/validator.service';
 import { Product } from './products';
 
 import { EditDeleteButtonComponent } from '../../components/edit-delete-button/edit-delete-button.component';
@@ -24,16 +25,18 @@ import { NumberRegex } from '../../constants/Regex';
 })
 export class ProductComponent implements OnInit {
   private gridApi!: GridApi;
+  isSubmitted!: boolean;
 
   constructor(
     private productService: ProductService,
     private formBuilder: FormBuilder,
+    private validatorService: ValidatorService,
   ) {}
 
   rowData!: Observable<Product[]>;
   columnDefs: ColDef[] = [
     { field: 'name', resizable: true, editable: true },
-    { field: 'description', editable: true },
+    { field: 'description', resizable: true, editable: true },
     {
       field: 'price',
       maxWidth: 110,
@@ -42,10 +45,10 @@ export class ProductComponent implements OnInit {
     },
     {
       field: 'published',
-      maxWidth: 100,
+      maxWidth: 120,
       cellRenderer: PublishedIndicatorComponent,
     },
-    { field: 'Action', maxWidth: 150, cellRenderer: EditDeleteButtonComponent },
+    { field: 'Action', minWidth: 150, cellRenderer: EditDeleteButtonComponent },
   ];
 
   defaultColDef: ColDef = {
@@ -53,16 +56,30 @@ export class ProductComponent implements OnInit {
   };
 
   addProductForm = this.formBuilder.group({
-    name: '',
-    description: '',
-    price: 0,
+    name: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    price: ['', [Validators.required, Validators.min(1)]],
     published: true,
-  } as Product);
+  });
+
+  hasError(controlName: string, errorName: string): boolean {
+    const control = this.addProductForm.get(controlName);
+    return this.validatorService.hasError(control, errorName, this.isSubmitted);
+  }
+
+  showInputError(controlName: string): boolean {
+    const control = this.addProductForm.get(controlName);
+    return this.validatorService.showInputError(control, this.isSubmitted);
+  }
 
   async onAddProduct() {
-    this.productService.addProduct(this.addProductForm.value).subscribe();
-    this.addProductForm.reset();
-    this.getProducts();
+    this.isSubmitted = true;
+    if (this.addProductForm.valid) {
+      this.productService.addProduct(this.addProductForm.value).subscribe();
+      this.addProductForm.reset();
+      this.getProducts();
+      this.isSubmitted = false;
+    }
   }
 
   onFilterTextBoxChanged() {

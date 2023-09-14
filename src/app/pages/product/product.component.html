@@ -7,11 +7,41 @@
     >
       <h3>Add new Product</h3>
       <label class="form-label">Name</label>
-      <input type="text" class="form-control" formControlName="name" />
+      <input
+        type="text"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': showInputError('name') }"
+        formControlName="name"
+      />
+      <p *ngIf="hasError('name', 'required')" class="text-danger">
+        Product name is required.
+      </p>
+
       <label class="form-label">Description</label>
-      <input type="text" class="form-control" formControlName="description" />
+      <input
+        type="text"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': showInputError('description') }"
+        formControlName="description"
+      />
+      <p *ngIf="hasError('name', 'required')" class="text-danger">
+        Product Description is required.
+      </p>
+
       <label class="form-label">Price</label>
-      <input type="number" class="form-control" formControlName="price" />
+      <input
+        type="number"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': showInputError('price') }"
+        formControlName="price"
+      />
+      <p *ngIf="hasError('price', 'required')" class="text-danger">
+        Price is required.
+      </p>
+      <p *ngIf="hasError('price', 'min')" class="text-danger">
+        Price must be greater than 0.
+      </p>
+
       <div class="form-check form-switch mt-2">
         <input
           class="form-check-input"
