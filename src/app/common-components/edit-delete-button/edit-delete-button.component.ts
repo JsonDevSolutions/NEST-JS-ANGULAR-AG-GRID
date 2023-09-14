@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
-import { ProductService } from '../product/product.service';
+import { ProductService } from '../../product/product.service';
 
 @Component({
   selector: 'app-edit-delete-button',
