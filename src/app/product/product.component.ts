@@ -21,11 +21,17 @@ export class ProductComponent implements OnInit {
 
   rowData!: Observable<Product[]>;
   columnDefs: ColDef[] = [
-    { field: 'name' },
+    { field: 'name', resizable: true },
     { field: 'description' },
-    { field: 'price', valueFormatter: this.currencyFormatter, editable: true },
+    {
+      field: 'price',
+      maxWidth: 110,
+      valueFormatter: this.currencyFormatter,
+      editable: true,
+    },
     {
       field: 'published',
+      maxWidth: 100,
       cellRenderer: PublishedIndicatorComponent,
     },
     { field: 'Action', cellRenderer: EditDeleteButtonComponent },
