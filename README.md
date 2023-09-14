@@ -4,6 +4,14 @@
 
 
 This project combines Nest.js, Angular, and AG-Grid to create an application with CRUD OPERATIONS to apply my learnings in reviewing the documentation.
+### Technologies and Tools Used
+ - Nest JS
+ - Angular
+ - AG-GRID
+ - BOOTSTRAP
+ - MYSQL
+ - PRISMA
+
 
 ### Prerequisites
 
