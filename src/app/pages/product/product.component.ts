@@ -75,9 +75,10 @@ export class ProductComponent implements OnInit {
   async onAddProduct() {
     this.isSubmitted = true;
     if (this.addProductForm.valid) {
-      this.productService.addProduct(this.addProductForm.value).subscribe();
+      this.productService.addProduct(this.addProductForm.value).subscribe({
+        complete: () => this.getProducts(),
+      });
       this.addProductForm.reset();
-      this.getProducts();
       this.isSubmitted = false;
     }
   }
@@ -103,7 +104,7 @@ export class ProductComponent implements OnInit {
     this.getProducts();
   }
 
-  async getProducts() {
+  getProducts() {
     this.rowData = this.productService.getProducts();
   }
 

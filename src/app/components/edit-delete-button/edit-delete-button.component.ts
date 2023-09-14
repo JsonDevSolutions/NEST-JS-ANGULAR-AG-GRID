@@ -10,6 +10,7 @@ import { ProductService } from '../../pages/product/product.service';
 })
 export class EditDeleteButtonComponent implements ICellRendererAngularComp {
   productId!: number;
+  removeTransaction!: () => void;
 
   constructor(private productService: ProductService) {}
 
@@ -18,11 +19,14 @@ export class EditDeleteButtonComponent implements ICellRendererAngularComp {
   }
   agInit(params: ICellRendererParams): void {
     this.productId = params.data.id;
+    this.removeTransaction = () => {
+      params.api.applyTransaction({ remove: [params.data] });
+    };
   }
 
   onDelete() {
-    const deleteProduct = this.productService
+    this.productService
       .deleteProduct(this.productId)
-      .subscribe();
+      .subscribe({ complete: () => this.removeTransaction() });
   }
 }
