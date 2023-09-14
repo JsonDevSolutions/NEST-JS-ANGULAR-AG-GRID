@@ -32,12 +32,13 @@ export class ProductComponent implements OnInit {
   addProductForm = this.formBuilder.group({
     name: '',
     description: '',
-    price: '',
+    price: 0,
     published: true,
-  });
+  } as Product);
 
   onAddProduct(): void {
-    alert('hey');
+    this.productService.addProduct(this.addProductForm.value).subscribe();
+    this.addProductForm.reset();
   }
 
   ngOnInit(): void {
