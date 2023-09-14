@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
-import { CartService } from '../cart/cart.service';
+import { CartService } from '../../pages/cart/cart.service';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -8,7 +9,13 @@ import { CartService } from '../cart/cart.service';
   styleUrls: ['./top-bar.component.css'],
 })
 export class TopBarComponent {
-  constructor(private cartService: CartService) {}
+  isLogin = false;
+  isAdmin = false;
+
+  constructor(
+    private cartService: CartService,
+    private userService: UserService,
+  ) {}
 
   get cartItemsCount(): number {
     return this.cartService.getProductCount();

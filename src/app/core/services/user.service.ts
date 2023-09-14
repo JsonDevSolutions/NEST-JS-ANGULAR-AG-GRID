@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Product } from '../product/products';
-import { User } from './user.interface';
+import { Product } from '../../pages/product/products';
+import { User } from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   host = 'http://localhost:3333';
+  isLogin = false;
 
   constructor(private http: HttpClient) {}
 

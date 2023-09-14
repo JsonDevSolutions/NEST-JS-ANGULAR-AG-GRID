@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from './product.service';
-import { Product } from './products';
 import {
   CellValueChangedEvent,
   ColDef,
@@ -9,10 +7,15 @@ import {
   ValueFormatterParams,
 } from 'ag-grid-community';
 import { Observable } from 'rxjs';
-import { EditDeleteButtonComponent } from '../common-components/edit-delete-button/edit-delete-button.component';
 import { FormBuilder } from '@angular/forms';
-import { PublishedIndicatorComponent } from '../common-components/published-indicator/published-indicator.component';
-import { NumberRegex } from '../constants/Regex';
+
+import { ProductService } from './product.service';
+import { Product } from './products';
+
+import { EditDeleteButtonComponent } from '../../components/edit-delete-button/edit-delete-button.component';
+import { PublishedIndicatorComponent } from '../../components/published-indicator/published-indicator.component';
+
+import { NumberRegex } from '../../constants/Regex';
 
 @Component({
   selector: 'app-product',

@@ -5,17 +5,18 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { TopBarComponent } from './top-bar/top-bar.component';
-import { ProductListComponent } from './product-list/product-list.component';
-import { CartComponent } from './cart/cart.component';
-import { SignupComponent } from './signup/signup.component';
-import { CheckoutComponent } from './checkout/checkout.component';
-import { ProductComponent } from './product/product.component';
+import { LoginComponent } from './pages/login/login.component';
+import { TopBarComponent } from './components/top-bar/top-bar.component';
+import { ProductListComponent } from './pages/product-list/product-list.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { ProductComponent } from './pages/product/product.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { EditDeleteButtonComponent } from './common-components/edit-delete-button/edit-delete-button.component';
-import { ProductDetailsComponent } from './product-details/product-details.component';
-import { PublishedIndicatorComponent } from './common-components/published-indicator/published-indicator.component';
+import { EditDeleteButtonComponent } from './components/edit-delete-button/edit-delete-button.component';
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { PublishedIndicatorComponent } from './components/published-indicator/published-indicator.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 @NgModule({
   imports: [
@@ -24,13 +25,22 @@ import { PublishedIndicatorComponent } from './common-components/published-indic
     HttpClientModule,
     AgGridModule,
     RouterModule.forRoot([
-      { path: '', component: ProductListComponent },
-      { path: 'cart', component: CartComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: SignupComponent },
-      { path: 'checkout', component: CheckoutComponent },
-      { path: 'products', component: ProductComponent },
-      { path: 'products/:productId', component: ProductDetailsComponent },
+      {
+        path: '',
+        title: 'Homepage',
+        component: ProductListComponent,
+        canActivate: [AuthGuard],
+      },
+      { path: 'cart', title: 'Shopping Card', component: CartComponent },
+      { path: 'login', title: 'Login', component: LoginComponent },
+      { path: 'register', title: 'Register', component: SignupComponent },
+      { path: 'checkout', title: 'Checkout', component: CheckoutComponent },
+      { path: 'products', title: 'Products', component: ProductComponent },
+      {
+        path: 'products/:productId',
+        title: 'Product Details',
+        component: ProductDetailsComponent,
+      },
     ]),
   ],
   declarations: [

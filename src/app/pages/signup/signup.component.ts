@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { UserService } from '../user/user.service';
-import { User } from '../user/user.interface';
+import { UserService } from '../../core/services/user.service';
+import { User } from '../../core/interfaces/user.interface';
 
 @Component({
   selector: 'app-signup',
