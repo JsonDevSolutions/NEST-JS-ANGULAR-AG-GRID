@@ -1,5 +1,4 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import { Product } from '../../core/interfaces/products';
 import { CartService } from '../cart/cart.service';
@@ -17,14 +16,10 @@ export class ProductListComponent implements OnInit {
     private productService: ProductService,
   ) {}
 
-  // products = [...products];
   products!: Observable<Product[]>;
-
-  @Output() valueChanged = new EventEmitter<Product>();
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
-    this.valueChanged.emit(product);
     window.alert('Your product has been added to the cart!');
   }
 

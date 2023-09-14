@@ -33,7 +33,7 @@ import { AuthGuard } from './core/guards/auth.guard';
       },
       {
         path: 'cart',
-        title: 'Shopping Card',
+        title: 'Shopping Cart',
         component: CartComponent,
         canActivate: [AuthGuard],
       },
