@@ -30,7 +30,8 @@ Before you begin, ensure you have met the following requirements:
 2. cd `/Nest JS Back End`
 3. run `npm install` in your terminal.
 4. configure `.env` file with your database credentials `mysql://USER:PASSWORD@HOST:PORT/DATABASE`
-5. run `npm run start:dev` in your terminal.
-6. Open a new terminal tab and run cd `/Angular Front End`
-7. run `npm install` in your terminal.
-8. run `npm run start` in your terminal.
+5. run `npx prisma migrate dev --name init` in the terminal to generate database migration.
+6. run `npm run start:dev` in your terminal.
+7. Open a new terminal tab and run cd `/Angular Front End`
+8. run `npm install` in your terminal.
+9. run `npm run start` in your terminal.
