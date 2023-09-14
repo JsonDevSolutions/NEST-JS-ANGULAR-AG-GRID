@@ -26,7 +26,7 @@ export class PublishedIndicatorComponent implements ICellRendererAngularComp {
   onUpdatePublish() {
     this.isPublished = !this.isPublished;
     this.productService
-      .updateProduct(this.productId, this.isPublished)
+      .updateProductStatus(this.productId, this.isPublished)
       .subscribe();
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from './product.service';
 import { Product } from './products';
 import {
+  CellValueChangedEvent,
   ColDef,
   GridApi,
   GridReadyEvent,
@@ -28,8 +29,8 @@ export class ProductComponent implements OnInit {
 
   rowData!: Observable<Product[]>;
   columnDefs: ColDef[] = [
-    { field: 'name', resizable: true },
-    { field: 'description' },
+    { field: 'name', resizable: true, editable: true },
+    { field: 'description', editable: true },
     {
       field: 'price',
       maxWidth: 110,
@@ -41,7 +42,7 @@ export class ProductComponent implements OnInit {
       maxWidth: 100,
       cellRenderer: PublishedIndicatorComponent,
     },
-    { field: 'Action', cellRenderer: EditDeleteButtonComponent },
+    { field: 'Action', maxWidth: 150, cellRenderer: EditDeleteButtonComponent },
   ];
 
   defaultColDef: ColDef = {
@@ -55,9 +56,10 @@ export class ProductComponent implements OnInit {
     published: true,
   } as Product);
 
-  onAddProduct(): void {
+  async onAddProduct() {
     this.productService.addProduct(this.addProductForm.value).subscribe();
     this.addProductForm.reset();
+    this.getProducts();
   }
 
   onFilterTextBoxChanged() {
@@ -70,7 +72,18 @@ export class ProductComponent implements OnInit {
     return '$' + params.value.toFixed(2).replace(NumberRegex.COUNT, '$1,');
   }
 
+  onCellValueChanged(event: CellValueChangedEvent) {
+    const { id, name, description, price } = event.data as Product;
+    const product = { id, name, description, price };
+
+    this.productService.updateProduct(product).subscribe();
+  }
+
   ngOnInit(): void {
+    this.getProducts();
+  }
+
+  async getProducts() {
     this.rowData = this.productService.getProducts();
   }
 

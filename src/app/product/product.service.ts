@@ -23,8 +23,14 @@ export class ProductService {
     return this.http.get<Product>(`${this.host}/product/${productId}`);
   }
 
-  updateProduct(productId: number, published: boolean) {
-    return this.http.put(`${this.host}/product/${productId}`, { published });
+  updateProduct(product: Product) {
+    return this.http.put(`${this.host}/product/${product.id}`, product);
+  }
+
+  updateProductStatus(productId: number, published: boolean) {
+    return this.http.put(`${this.host}/product/status/${productId}`, {
+      published,
+    });
   }
 
   deleteProduct(productId: number) {
