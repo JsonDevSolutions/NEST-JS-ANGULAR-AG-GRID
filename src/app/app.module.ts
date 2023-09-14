@@ -13,6 +13,9 @@ import { SignupComponent } from './signup/signup.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ProductComponent } from './product/product.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { EditDeleteButtonComponent } from './common-components/edit-delete-button/edit-delete-button.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { PublishedIndicatorComponent } from './common-components/published-indicator/published-indicator.component';
 
 @NgModule({
   imports: [
@@ -27,6 +30,7 @@ import { AgGridModule } from 'ag-grid-angular';
       { path: 'register', component: SignupComponent },
       { path: 'checkout', component: CheckoutComponent },
       { path: 'products', component: ProductComponent },
+      { path: 'products/:productId', component: ProductDetailsComponent },
     ]),
   ],
   declarations: [
@@ -38,6 +42,9 @@ import { AgGridModule } from 'ag-grid-angular';
     SignupComponent,
     CheckoutComponent,
     ProductComponent,
+    EditDeleteButtonComponent,
+    ProductDetailsComponent,
+    PublishedIndicatorComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
