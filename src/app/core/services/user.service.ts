@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Product } from '../../pages/product/products';
+import { Product } from '../interfaces/products';
 import { User } from '../interfaces/user.interface';
 
 @Injectable({

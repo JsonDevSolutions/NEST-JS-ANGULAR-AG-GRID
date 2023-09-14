@@ -11,7 +11,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 import { ProductService } from './product.service';
 import { ValidatorService } from '../../core/services/validator.service';
-import { Product } from './products';
+import { Product } from '../../core/interfaces/products';
 
 import { EditDeleteButtonComponent } from '../../components/edit-delete-button/edit-delete-button.component';
 import { PublishedIndicatorComponent } from '../../components/published-indicator/published-indicator.component';
