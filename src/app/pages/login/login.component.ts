@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { UserService } from '../../core/services/user.service';
 import { Router } from '@angular/router';
+
+import { UserService } from '../../core/services/user.service';
+import { ValidatorService } from '../../core/services/validator.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +19,7 @@ export class LoginComponent {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
+    private validatorService: ValidatorService,
   ) {}
 
   showPassword() {
@@ -28,24 +31,14 @@ export class LoginComponent {
     password: ['', [Validators.required]],
   });
 
-  // Check for individual validation errors
   hasError(controlName: string, errorName: string): boolean {
     const control = this.loginForm.get(controlName);
-    return (
-      !!control &&
-      control.hasError(errorName) &&
-      (control.dirty || control.touched || this.isSubmitted)
-    );
+    return this.validatorService.hasError(control, errorName, this.isSubmitted);
   }
 
-  // Check if any validation error occurs
   showInputError(controlName: string): boolean {
     const control = this.loginForm.get(controlName);
-    return (
-      !!control &&
-      control?.invalid &&
-      (control.dirty || control.touched || this.isSubmitted)
-    );
+    return this.validatorService.showInputError(control, this.isSubmitted);
   }
 
   onLogin(): void {

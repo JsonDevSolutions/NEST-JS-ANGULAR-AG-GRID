@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../../core/services/user.service';
 import { User } from '../../core/interfaces/user.interface';
+import { ValidatorService } from '../../core/services/validator.service';
 
 @Component({
   selector: 'app-signup',
@@ -10,10 +11,12 @@ import { User } from '../../core/interfaces/user.interface';
 })
 export class SignupComponent {
   isPassword = true;
+  isSubmitted = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private validatorService: ValidatorService,
   ) {}
 
   showPassword() {
@@ -21,13 +24,26 @@ export class SignupComponent {
   }
 
   registerForm = this.formBuilder.group({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  } as User);
+    firstName: ['', [Validators.required]],
+    lastName: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(5)]],
+  });
+
+  hasError(controlName: string, errorName: string): boolean {
+    const control = this.registerForm.get(controlName);
+    return this.validatorService.hasError(control, errorName, this.isSubmitted);
+  }
+
+  showInputError(controlName: string): boolean {
+    const control = this.registerForm.get(controlName);
+    return this.validatorService.showInputError(control, this.isSubmitted);
+  }
 
   onRegister(): void {
-    this.userService.signUp(this.registerForm.value).subscribe();
+    this.isSubmitted = true;
+    if (this.registerForm.valid) {
+      this.userService.signUp(this.registerForm.value).subscribe();
+    }
   }
 }

@@ -1,21 +1,61 @@
-<div class="row justify-content-center align-items-center">
+<div class="row justify-content-center align-items-center mt-5">
   <div class="col-md-4 px-5 py-4 border rounded-4">
     <form class="w-100" [formGroup]="registerForm" (ngSubmit)="onRegister()">
       <h2>Register</h2>
       <label class="form-label">First name</label>
-      <input type="text" class="form-control" formControlName="firstName" />
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Jhon"
+        [ngClass]="{ 'is-invalid': showInputError('firstName') }"
+        formControlName="firstName"
+      />
+      <p *ngIf="hasError('firstName', 'required')" class="text-danger">
+        First name is required.
+      </p>
+
       <label class="form-label">Last name</label>
-      <input type="text" class="form-control" formControlName="lastName" />
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Doe"
+        [ngClass]="{ 'is-invalid': showInputError('lastName') }"
+        formControlName="lastName"
+      />
+      <p *ngIf="hasError('lastName', 'required')" class="text-danger">
+        Last name is required.
+      </p>
+
       <label class="form-label">Email address</label>
-      <input type="text" class="form-control" formControlName="email" />
+      <input
+        type="text"
+        class="form-control"
+        placeholder="example@email.com"
+        [ngClass]="{ 'is-invalid': showInputError('email') }"
+        formControlName="email"
+      />
+      <p *ngIf="hasError('email', 'required')" class="text-danger">
+        Email is required.
+      </p>
+      <p *ngIf="hasError('email', 'email')" class="text-danger">
+        Invalid email address.
+      </p>
+
       <label class="form-label">Password</label>
       <input
         [type]="isPassword ? 'password' : 'text'"
         class="form-control"
+        placeholder="Password"
+        [ngClass]="{ 'is-invalid': showInputError('password') }"
         formControlName="password"
       />
-      <label class="form-label">Confirm Password</label>
-      <input [type]="isPassword ? 'password' : 'text'" class="form-control" />
+      <p *ngIf="hasError('password', 'required')" class="text-danger">
+        Password is required.
+      </p>
+      <p *ngIf="hasError('password', 'minlength')" class="text-danger">
+        Password must be 5 characters long.
+      </p>
+
       <div class="form-check mt-3">
         <input
           class="form-check-input"
