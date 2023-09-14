@@ -12,6 +12,7 @@ import { ValidatorService } from '../../core/services/validator.service';
 export class SignupComponent {
   isPassword = true;
   isSubmitted = false;
+  isDisplaySuccess = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,8 +43,13 @@ export class SignupComponent {
 
   onRegister(): void {
     this.isSubmitted = true;
+    this.isDisplaySuccess = false;
     if (this.registerForm.valid) {
-      this.userService.signUp(this.registerForm.value).subscribe();
+      this.userService
+        .signUp(this.registerForm.value)
+        .subscribe({ complete: () => (this.isDisplaySuccess = true) });
+      this.registerForm.reset();
+      this.isSubmitted = false;
     }
   }
 }
