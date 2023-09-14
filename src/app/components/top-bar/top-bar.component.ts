@@ -9,7 +9,6 @@ import { UserService } from '../../core/services/user.service';
   styleUrls: ['./top-bar.component.css'],
 })
 export class TopBarComponent {
-  isLogin = false;
   isAdmin = false;
 
   constructor(
@@ -19,5 +18,13 @@ export class TopBarComponent {
 
   get cartItemsCount(): number {
     return this.cartService.getProductCount();
+  }
+
+  isLogin() {
+    return this.userService.isAuthenticated();
+  }
+
+  logOut() {
+    this.userService.logOut();
   }
 }
