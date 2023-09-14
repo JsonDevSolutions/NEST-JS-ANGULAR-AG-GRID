@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from './product.service';
 import { Product } from './products';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, ValueFormatterParams } from 'ag-grid-community';
 import { Observable } from 'rxjs';
-import { EditDeleteButtonComponent } from '../edit-delete-button/edit-delete-button.component';
+import { EditDeleteButtonComponent } from '../common-components/edit-delete-button/edit-delete-button.component';
 import { FormBuilder } from '@angular/forms';
+import { PublishedIndicatorComponent } from '../common-components/published-indicator/published-indicator.component';
+import { NumberRegex } from '../constants/Regex';
 
 @Component({
   selector: 'app-product',
@@ -21,7 +23,11 @@ export class ProductComponent implements OnInit {
   columnDefs: ColDef[] = [
     { field: 'name' },
     { field: 'description' },
-    { field: 'price', editable: true },
+    { field: 'price', valueFormatter: this.currencyFormatter, editable: true },
+    {
+      field: 'published',
+      cellRenderer: PublishedIndicatorComponent,
+    },
     { field: 'Action', cellRenderer: EditDeleteButtonComponent },
   ];
 
@@ -47,5 +53,9 @@ export class ProductComponent implements OnInit {
 
   onCellClicked(event: any) {
     console.log(event);
+  }
+
+  currencyFormatter(params: ValueFormatterParams) {
+    return '$' + params.value.toFixed(2).replace(NumberRegex.COUNT, '$1,');
   }
 }
