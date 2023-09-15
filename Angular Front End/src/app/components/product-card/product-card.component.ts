@@ -19,9 +19,11 @@ export class ProductCardComponent {
   }
 
   addToCart(product: Product) {
-    this.cartService
-      .addToCart(Number(product.id), this.quantity)
-      .subscribe({ complete: () => (this.quantity = 1) });
-    window.alert('Your product has been added to the cart!');
+    this.cartService.addToCart(Number(product.id), this.quantity).subscribe({
+      complete: () => {
+        this.quantity = 1;
+        this.cartService.getCartItems().subscribe();
+      },
+    });
   }
 }

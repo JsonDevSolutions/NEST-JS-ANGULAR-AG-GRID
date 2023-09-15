@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CartService } from '../../pages/cart/cart.service';
 import { UserService } from '../../core/services/user.service';
@@ -8,7 +8,7 @@ import { UserService } from '../../core/services/user.service';
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.css'],
 })
-export class TopBarComponent {
+export class TopBarComponent implements OnInit {
   isAdmin = false;
 
   constructor(
@@ -26,5 +26,9 @@ export class TopBarComponent {
 
   logOut() {
     this.userService.logOut();
+  }
+
+  ngOnInit(): void {
+    this.cartService.getCartItems().subscribe();
   }
 }
