@@ -21,6 +21,7 @@ model User {
 
   createAt  DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Cart      Cart[]
 }
 
 model Product {
@@ -29,6 +30,19 @@ model Product {
   price       Int
   description String?
   published   Boolean? @default(false)
+
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Cart      Cart[]
+}
+
+model Cart {
+  id        Int      @id @default(autoincrement())
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
+  product   Product? @relation(fields: [productId], references: [id])
+  productId Int?
+  quantity  Int
 
   createAt  DateTime @default(now())
   updatedAt DateTime @updatedAt
