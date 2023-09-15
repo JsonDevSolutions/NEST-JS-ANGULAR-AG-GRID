@@ -1,16 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ApiResponse } from '../interfaces/api.interface';
+import { HttpConfigService } from './http-config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  host = 'http://localhost:3333';
+  constructor(
+    private http: HttpClient,
+    private httpConfigService: HttpConfigService,
+  ) {}
 
-  constructor(private http: HttpClient, private router: Router) {}
+  host = this.httpConfigService.getHost();
 
   signUp(user: any) {
     return this.http.post(`${this.host}/auth/register`, user);

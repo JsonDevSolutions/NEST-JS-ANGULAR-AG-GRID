@@ -3,16 +3,20 @@ import { HttpClient } from '@angular/common/http';
 
 import { map } from 'rxjs';
 import { Cart } from 'src/app/core/interfaces/cart.interface';
+import { HttpConfigService } from 'src/app/core/services/http-config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  host = 'http://localhost:3333';
-
   items: Cart[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private httpConfigService: HttpConfigService,
+  ) {}
+
+  host = this.httpConfigService.getHost();
 
   addToCart(productId: number, quantity: number) {
     return this.http.post(`${this.host}/cart`, {
