@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-lg bg-dark" *ngIf="isLogin() && !isAdmin">
+<nav
+  class="navbar navbar-expand-lg bg-dark sticky-top"
+  *ngIf="isLogin() && !isAdmin"
+>
   <div class="container-fluid fs-4 px-5">
     <a class="navbar-brand fs-1 text-white" [routerLink]="['/']">GADGET PH</a>
     <div class="d-flex">
