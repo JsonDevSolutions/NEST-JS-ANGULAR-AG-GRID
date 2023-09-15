@@ -2,7 +2,7 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { ApiResponse } from 'src/api/api';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CartDto } from './cart.dto';
-import { Cart } from '@prisma/client';
+import { Cart, Product } from '@prisma/client';
 
 @Injectable()
 export class CartService {
@@ -45,10 +45,14 @@ export class CartService {
     return { message: 'Something went wrong.' };
   }
 
-  async getCartList(): Promise<Cart[]> {
-    return await this.prisma.cart.findMany({
+  async getCartList(): Promise<Product[]> {
+    return await this.prisma.product.findMany({
       where: {
-        userId: 1,
+        Cart: {
+          some: {
+            userId: 2,
+          },
+        },
       },
     });
   }
