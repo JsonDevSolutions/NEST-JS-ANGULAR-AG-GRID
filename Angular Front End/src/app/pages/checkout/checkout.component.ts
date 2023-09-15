@@ -3,7 +3,7 @@ import { CartService } from '../cart/cart.service';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-import { Product } from 'src/app/core/interfaces/products';
+import { Cart } from 'src/app/core/interfaces/cart.interface';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -14,7 +14,7 @@ export class CheckoutComponent {
     private cartService: CartService,
     private formBuilder: FormBuilder,
   ) {}
-  items!: Observable<Product[]>;
+  items!: Observable<Cart[]>;
   cartCount = this.cartService.getProductCount();
 
   checkoutForm = this.formBuilder.group({

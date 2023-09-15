@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Product } from '../../core/interfaces/products';
 import { map } from 'rxjs';
+import { Cart } from 'src/app/core/interfaces/cart.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { map } from 'rxjs';
 export class CartService {
   host = 'http://localhost:3333';
 
-  items: Product[] = [];
+  items: Cart[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +23,7 @@ export class CartService {
   }
 
   getCartItems() {
-    return this.http.get<Product[]>(`${this.host}/cart`).pipe(
+    return this.http.get<Cart[]>(`${this.host}/cart`).pipe(
       map((product) => {
         if (product) {
           this.items = product;

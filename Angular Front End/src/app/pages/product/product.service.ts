@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Product } from '../../core/interfaces/products';
+import { Product } from '../../core/interfaces/product.interface';
 import { HttpConfigService } from 'src/app/core/services/http-config.service';
 
 @Injectable({
