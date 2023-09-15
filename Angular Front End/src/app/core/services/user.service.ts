@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { Product } from '../interfaces/products';
-import { User } from '../interfaces/user.interface';
+import { ApiResponse } from '../interfaces/api.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -19,9 +18,9 @@ export class UserService {
 
   login(userData: any) {
     return this.http.post(`${this.host}/auth/login`, userData).pipe(
-      map((user) => {
+      map((user: ApiResponse<Response>) => {
         if (user) {
-          localStorage.setItem('currentUser', JSON.stringify(userData));
+          localStorage.setItem('user', JSON.stringify(user.data));
         }
         return user;
       }),
@@ -29,13 +28,21 @@ export class UserService {
   }
 
   isAuthenticated(): boolean {
-    if (localStorage.getItem('currentUser')) {
+    if (localStorage.getItem('user')) {
+      return true;
+    }
+    return false;
+  }
+
+  isAdmin(): boolean {
+    const user = localStorage.getItem('user');
+    if (!!user && JSON.parse(user).isAdmin) {
       return true;
     }
     return false;
   }
 
   logOut() {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('user');
   }
 }
