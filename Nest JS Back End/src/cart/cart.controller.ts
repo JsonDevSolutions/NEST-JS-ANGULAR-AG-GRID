@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { ApiResponse } from 'src/api/api';
 import { CartDto } from './cart.dto';
@@ -6,6 +6,11 @@ import { CartDto } from './cart.dto';
 @Controller('cart')
 export class CartController {
   constructor(private readonly cartService: CartService) {}
+
+  @Get()
+  async cartItems() {
+    return this.cartService.getCartList();
+  }
 
   @Post()
   async create(@Body() dto: CartDto): Promise<ApiResponse<Response>> {

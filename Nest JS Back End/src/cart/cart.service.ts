@@ -44,4 +44,12 @@ export class CartService {
     }
     return { message: 'Something went wrong.' };
   }
+
+  async getCartList(): Promise<Cart[]> {
+    return await this.prisma.cart.findMany({
+      where: {
+        userId: 1,
+      },
+    });
+  }
 }
