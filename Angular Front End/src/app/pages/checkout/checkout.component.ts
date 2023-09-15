@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { CartService } from '../cart/cart.service';
 import { FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs';
 
+import { Product } from 'src/app/core/interfaces/products';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -12,7 +14,7 @@ export class CheckoutComponent {
     private cartService: CartService,
     private formBuilder: FormBuilder,
   ) {}
-  items = this.cartService.getItems();
+  items!: Observable<Product[]>;
   cartCount = this.cartService.getProductCount();
 
   checkoutForm = this.formBuilder.group({
@@ -25,5 +27,8 @@ export class CheckoutComponent {
     // Process checkout data here
     console.warn('Your order has been submitted', this.checkoutForm.value);
     this.checkoutForm.reset();
+  }
+  ngOnInit(): void {
+    this.items = this.cartService.getCartItems();
   }
 }

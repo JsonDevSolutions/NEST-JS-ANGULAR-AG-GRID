@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { ApiResponse } from 'src/api/api';
 import { CartDto } from './cart.dto';
@@ -19,5 +19,12 @@ export class CartController {
       return this.cartService.updateCart(cart, dto.quantity);
     }
     return this.cartService.create(dto);
+  }
+
+  @Delete(':id')
+  async deleteCartItem(
+    @Param('id') id: string,
+  ): Promise<ApiResponse<Response>> {
+    return this.cartService.deleteCartItem(Number(id));
   }
 }

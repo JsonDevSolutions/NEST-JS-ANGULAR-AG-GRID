@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Product } from '../../core/interfaces/products';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,25 +16,29 @@ export class CartService {
 
   addToCart(productId: number, quantity: number) {
     return this.http.post(`${this.host}/cart`, {
-      userId: 1,
+      userId: 2,
       productId,
       quantity,
     });
   }
 
-  getItems() {
-    return this.items;
+  getCartItems() {
+    return this.http.get<Product[]>(`${this.host}/cart`).pipe(
+      map((product) => {
+        if (product) {
+          this.items = product;
+        }
+        return product;
+      }),
+    );
   }
 
   getProductCount() {
     return this.items.length;
   }
 
-  deleteItem(product: Product) {
-    const index: number = this.items.indexOf(product);
-    if (index !== -1) {
-      this.items.splice(index, 1);
-    }
+  deleteItem(productId: number) {
+    return this.http.delete(`${this.host}/cart/${productId}`);
   }
 
   clearCart() {

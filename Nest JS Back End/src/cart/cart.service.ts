@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, HttpStatus, Injectable } from '@nestjs/common';
 import { ApiResponse } from 'src/api/api';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CartDto } from './cart.dto';
@@ -55,5 +55,22 @@ export class CartService {
         },
       },
     });
+  }
+
+  async deleteCartItem(productId: number): Promise<ApiResponse<Response>> {
+    try {
+      const deleteCart = await this.prisma.cart.deleteMany({
+        where: { productId, userId: 2 },
+      });
+
+      if (deleteCart) {
+        return {
+          message: 'Cart item deleted successfully',
+          statusCode: HttpStatus.OK,
+        };
+      }
+    } catch (error) {
+      return { message: 'Something went wrong.' };
+    }
   }
 }
