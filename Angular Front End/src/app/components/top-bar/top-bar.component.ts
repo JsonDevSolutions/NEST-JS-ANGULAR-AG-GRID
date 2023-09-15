@@ -9,8 +9,6 @@ import { UserService } from '../../core/services/user.service';
   styleUrls: ['./top-bar.component.css'],
 })
 export class TopBarComponent implements OnInit {
-  isAdmin = false;
-
   constructor(
     private cartService: CartService,
     private userService: UserService,
@@ -22,6 +20,10 @@ export class TopBarComponent implements OnInit {
 
   isLogin() {
     return this.userService.isAuthenticated();
+  }
+
+  isAdmin() {
+    return this.userService.isAdmin();
   }
 
   logOut() {
