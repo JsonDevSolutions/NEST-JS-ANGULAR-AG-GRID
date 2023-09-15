@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { Product } from '../../core/interfaces/products';
 
@@ -6,12 +7,18 @@ import { Product } from '../../core/interfaces/products';
   providedIn: 'root',
 })
 export class CartService {
+  host = 'http://localhost:3333';
+
   items: Product[] = [];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  addToCart(product: Product) {
-    this.items.push(product);
+  addToCart(productId: number, quantity: number) {
+    return this.http.post(`${this.host}/cart`, {
+      userId: 1,
+      productId,
+      quantity,
+    });
   }
 
   getItems() {
