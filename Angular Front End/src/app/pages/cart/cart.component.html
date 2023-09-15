@@ -13,7 +13,9 @@
         <td>{{ item.name }}</td>
         <td>{{ item.price | currency }}</td>
         <td>
-          <a class="btn btn-primary me-2">Show</a>
+          <a class="btn btn-primary me-2" [routerLink]="['/products', item.id]"
+            >Show</a
+          >
           <a class="btn btn-danger" (click)="deleteCartItem(item)">Delete</a>
         </td>
       </tr>
