@@ -6,14 +6,17 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductDto } from './dto';
 import { ProductService } from './product.service';
 import { ApiResponse } from 'src/api/api';
 import { Product } from '@prisma/client';
 import { faker } from '@faker-js/faker';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('product')
+@UseGuards(AuthGuard)
 export class ProductController {
   constructor(private productService: ProductService) {}
 

@@ -1,8 +1,7 @@
-import { Controller, Post, Body, HttpCode } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { User as UserModel } from '@prisma/client';
-import { LoginDto, UserDto } from './dto';
-import { ApiResponse } from 'src/api/api';
+import { UserDto } from './dto';
 
 @Controller('auth')
 export class UserController {
@@ -11,11 +10,5 @@ export class UserController {
   @Post('register')
   async registerUser(@Body() dto: UserDto): Promise<UserModel> {
     return this.userService.createUser(dto);
-  }
-
-  @Post('login')
-  @HttpCode(200)
-  loginUser(@Body() user: LoginDto): Promise<ApiResponse<Response>> {
-    return this.userService.login(user);
   }
 }
