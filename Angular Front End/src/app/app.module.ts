@@ -17,6 +17,7 @@ import { EditDeleteButtonComponent } from './components/edit-delete-button/edit-
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { PublishedIndicatorComponent } from './components/published-indicator/published-indicator.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 @NgModule({
   imports: [
@@ -79,6 +80,7 @@ import { AuthGuard } from './core/guards/auth.guard';
     EditDeleteButtonComponent,
     ProductDetailsComponent,
     PublishedIndicatorComponent,
+    ProductCardComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
