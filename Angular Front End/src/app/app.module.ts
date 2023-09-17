@@ -64,7 +64,6 @@ import { ProductCardComponent } from './components/product-card/product-card.com
         path: 'products/:productId',
         title: 'Product Details',
         component: ProductDetailsComponent,
-        canActivate: [AuthGuard],
       },
     ]),
   ],
