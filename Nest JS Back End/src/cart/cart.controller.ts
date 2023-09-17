@@ -7,9 +7,14 @@ import { CartDto } from './cart.dto';
 export class CartController {
   constructor(private readonly cartService: CartService) {}
 
-  @Get()
-  async cartItems() {
-    return this.cartService.getCartList();
+  @Get(':userId')
+  async cartItems(@Param('userId') userId: string) {
+    return this.cartService.getCartList(Number(userId));
+  }
+
+  @Get('count/:userId')
+  async cartItemsCount(@Param('userId') userId: string) {
+    return await this.cartService.getCartItemsCount(Number(userId));
   }
 
   @Post()
@@ -21,10 +26,11 @@ export class CartController {
     return this.cartService.create(dto);
   }
 
-  @Delete(':id')
+  @Delete(':userId/:id')
   async deleteCartItem(
+    @Param('userId') userId: string,
     @Param('id') id: string,
   ): Promise<ApiResponse<Response>> {
-    return this.cartService.deleteCartItem(Number(id));
+    return this.cartService.deleteCartItem(Number(userId), Number(id));
   }
 }

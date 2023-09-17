@@ -45,19 +45,30 @@ export class CartService {
     return { message: 'Something went wrong.' };
   }
 
-  async getCartList() {
+  async getCartList(userId: number) {
     return await this.prisma.cart.findMany({
       where: {
-        userId: 2,
+        userId,
       },
       include: { product: true },
     });
   }
 
-  async deleteCartItem(productId: number): Promise<ApiResponse<Response>> {
+  async getCartItemsCount(userId: number) {
+    return await this.prisma.cart.count({
+      where: {
+        userId,
+      },
+    });
+  }
+
+  async deleteCartItem(
+    userId: number,
+    productId: number,
+  ): Promise<ApiResponse<Response>> {
     try {
       const deleteCart = await this.prisma.cart.deleteMany({
-        where: { productId, userId: 2 },
+        where: { productId, userId },
       });
 
       if (deleteCart) {

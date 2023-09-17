@@ -45,6 +45,13 @@ export class UserService {
     return false;
   }
 
+  getUserId() {
+    const user = localStorage.getItem('user');
+    if (!!user) {
+      return JSON.parse(user).id;
+    }
+  }
+
   logOut() {
     localStorage.removeItem('user');
   }
