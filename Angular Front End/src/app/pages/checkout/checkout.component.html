@@ -24,17 +24,20 @@
           <td>Name</td>
           <td>Price</td>
           <td>Quantity</td>
-          <td>Total</td>
+          <td class="text-end">Total</td>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of items | async">
           <td>{{ item.product.name }}</td>
-          <td>{{ item.product.price | currency }}</td>
+          <td>{{ item.product.price | currency : 'PHP' }}</td>
           <td>{{ item.quantity }}</td>
-          <td>{{ item.quantity * item.product.price | currency }}</td>
+          <td class="text-end">
+            {{ item.quantity * item.product.price | currency : 'PHP' }}
+          </td>
         </tr>
       </tbody>
     </table>
+    <p class="text-end">Total Amount: {{ totalAmount | currency : 'PHP' }}</p>
   </div>
 </div>

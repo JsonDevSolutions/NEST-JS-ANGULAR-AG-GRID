@@ -15,7 +15,7 @@ export class TopBarComponent implements OnInit {
   ) {}
 
   get cartItemsCount(): number {
-    return this.cartService.getProductCount();
+    return this.cartService.getCartItemsCount();
   }
 
   isLogin() {

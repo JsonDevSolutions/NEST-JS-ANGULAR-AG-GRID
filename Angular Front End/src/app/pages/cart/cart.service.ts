@@ -41,7 +41,7 @@ export class CartService {
       );
   }
 
-  getProductCount() {
+  getCartItemsCount() {
     return this.items.length;
   }
 

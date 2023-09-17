@@ -15,13 +15,23 @@ export class CheckoutComponent {
     private formBuilder: FormBuilder,
   ) {}
   items!: Observable<Cart[]>;
-  cartCount = this.cartService.getProductCount();
+  totalAmount: number = 0;
+  cartCount = this.cartService.getCartItemsCount();
 
   checkoutForm = this.formBuilder.group({
     name: '',
     address: '',
     contact_number: '',
   });
+
+  calculateTotalAmount() {
+    this.items.subscribe((items) => {
+      this.totalAmount = items.reduce(
+        (total, item) => total + item.quantity * item.product.price,
+        0,
+      );
+    });
+  }
 
   onCheckout(): void {
     // Process checkout data here
@@ -30,5 +40,6 @@ export class CheckoutComponent {
   }
   ngOnInit(): void {
     this.items = this.cartService.getCartItems();
+    this.calculateTotalAmount();
   }
 }

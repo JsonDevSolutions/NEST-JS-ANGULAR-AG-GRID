@@ -90,7 +90,7 @@ export class ProductComponent implements OnInit {
   }
 
   currencyFormatter(params: ValueFormatterParams) {
-    return '$' + params.value.toFixed(2).replace(NumberRegex.COUNT, '$1,');
+    return '₱' + params.value.toFixed(2).replace(NumberRegex.COUNT, '$1,');
   }
 
   onCellValueChanged(event: CellValueChangedEvent) {
